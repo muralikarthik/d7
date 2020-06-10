@@ -27,11 +27,9 @@
   }
 } */
   
+/* hook_cron*/
   
-
-
-
-    function pub_tv_cron()
+function pub_tv_cron()
   //modulename_cron
 	{
     	// Get all products nodes
