@@ -1,5 +1,5 @@
 <?php
-
+//hook_views_query_alter
 //function smk_views_query_alter(&$view, &$query) {
 	/* echo "<pre>";
 	print_r($query);
