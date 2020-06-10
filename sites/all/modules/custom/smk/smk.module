@@ -1,0 +1,58 @@
+<?php
+
+//function smk_views_query_alter(&$view, &$query) {
+	/* echo "<pre>";
+	print_r($query);
+	echo "</pre>"; */
+ 
+  
+ //  if ($view->name == 'smk' && $view->current_display == 'page') {
+    
+    // to find out what the fieldname is: use Devel and add your desired field as 
+    // first filter ( =>orderby[0]). install Devel and uncomment the next line
+    // dpm($view->query->orderby);
+    
+    // Completely replace current orderby
+  /*   $query->orderby = array(
+      array(
+        // you need to actually do WHEN ... THEN once for each field, then a fallback
+        'field' => 'CASE WHEN 
+		field_data_field_smk_date.field_smk_date_value THEN field_data_field_smk_date.field_smk_date_value 
+		WHEN
+		field_data_field_pub_date.field_pub_date_value THEN field_data_field_pub_date.field_pub_date_value
+		ELSE node.created END',
+        'direction' => 'DESC',
+      )
+    );
+  }
+} */
+  
+  
+
+
+
+    function pub_tv_cron()
+  //modulename_cron
+	{
+    	// Get all products nodes
+    	$type = 'tv_show';
+    	$nodes = node_load_multiple(array(), array('type' => $type));
+	   	foreach($nodes as $node):
+       		// Extract the products path field.
+			
+    		$search_meta_desc =  $node->filed_summary['und']['0']['value'];  //search meta desc name
+			$show_name = explode('and the NBC App.',$search_meta_desc,2);
+  
+			$app_synopsis = $show_name[1];
+			// Save the filed to another field.
+    		$node->field_app_synopsis['und']['0']['value'] = $app_synopsis;  // synopsis filed name
+       		// Save the node
+    		node_save($node);
+         	endforeach;
+        }
+		
+		
+		 
+     
+    
+?>
